@@ -219,19 +219,41 @@ class Buscaminas extends JFrame {
     private JLabel labelFilas;
     private JLabel labelColumnas;
     private JLabel labelMinas;
+    private JPanel panel;
+    private JButton[][] botones;
     
     
     public Buscaminas(int cantidadFilas, int cantidadColumnas, int cantidadMinas) {
         setTitle("Buscaminas");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Solo cierra esta ventana
+        //setLayout(new GridLayout(3,1));
+        setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
+        JPanel infopanel = new JPanel(new GridLayout(3,1));
+        labelFilas = new JLabel("Cantidad de Filas: "+cantidadFilas);
+        labelColumnas = new JLabel("Cantidad de Columnas: "+cantidadColumnas);
+        labelMinas = new JLabel("Cantidad de Minas: "+cantidadMinas);
+        setSize(50 * cantidadColumnas, 50 * cantidadFilas);
+        infopanel.add(labelFilas);
+        infopanel.add(labelColumnas);
+        infopanel.add(labelMinas);
+        add(infopanel, BorderLayout.NORTH);
+        dibujarMatrizBotones(cantidadFilas, cantidadColumnas);
+        if (panel != null) {
+            add(panel, BorderLayout.CENTER);
+        }
         setVisible(true);
-        setLayout(new GridLayout(3,1));
-        labelFilas = new JLabel("Cantidad de Filas: "+cantidadFilas, SwingConstants.CENTER);
-        labelColumnas = new JLabel("Cantidad de Columnas: "+cantidadColumnas, SwingConstants.CENTER);
-        labelMinas = new JLabel("Cantidad de Minas: "+cantidadMinas, SwingConstants.CENTER);
-        setSize(400, 300);
-        add(labelFilas);
-        add(labelColumnas);
-        add(labelMinas);
+    }
+    
+    public void dibujarMatrizBotones(int filas, int columnas) {
+        panel = new JPanel(new GridLayout(filas, columnas, 2, 2));
+        botones = new JButton[filas][columnas];
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                botones [i] [j] = new JButton();
+                panel.add(botones[i][j]); //
+            }
+        }
+        
     }
 }
