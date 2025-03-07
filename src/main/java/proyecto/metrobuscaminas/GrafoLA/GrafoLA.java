@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package GrafoLA;
 
 import Lista.Lista;
@@ -12,7 +8,7 @@ public class GrafoLA {
     private int maxNodos;
     private int numVertices;
     private Lista<Nodo<Byte>> listaVertices;
-    private Lista<Lista<Integer>> listaAdy;
+    private Lista<Lista<Nodo<Integer>>> listaAdy; // Lista de listas de adyacencia
 
     public GrafoLA(int filas, int columnas, boolean d) {
         dirigido = d;
@@ -33,108 +29,78 @@ public class GrafoLA {
         listaVertices.insertar(posVert, mina);
 
         // Insertamos la lista de adyacencia vacía para este vértice
-        Nodo<Lista<Integer>> posAdy = listaAdy.fin();
+        Nodo<Lista<Nodo<Integer>>> posAdy = listaAdy.fin();
         listaAdy.insertar(posAdy, new Lista<>());
 
         numVertices++;
     }
 
-    public void imprimirListaVertices() {
-    Nodo<Nodo<Byte>> aux = listaVertices.primero();
+    public void calcularAdyacencias(int filas, int columnas) {
+        Nodo<Nodo<Byte>> aux = listaVertices.primero();
+        int index = 0;
 
-    while (aux != null) {
-        Nodo<Byte> mina = aux.info;
-        
-        // Convertir el valor Byte a char
-        char caracter = (char) mina.info.byteValue();
-        
-        System.out.println("Mina en posicion: (" + caracter + " -> " + mina.fila + "," + mina.col + ")");
-        
-        aux = aux.prox;
-    }
-    
-    
-/* public void imprimirGrafo() {
-        System.out.println("Tamaño máximo del grafo: " + maxNodos);
-        System.out.println("El grafo contiene " + numVertices + " vértices:");
-        
-        Nodo<Lista<Integer>> auxAdy = listaAdy.primero();
-        Nodo<Integer> auxVert = listaVertices.primero();
- 
-        
-        while (auxVert != null && auxAdy != null) {
-            System.out.print("Vértice " + auxVert.info + ": ");
-            escribir(auxAdy.info);
-            auxVert = auxVert.prox;
-            auxAdy = auxAdy.prox;
-        }
-    }
-    private void escribir(Lista<Integer> lista) {
-        if (lista == null) {
-            System.out.println("FIN");
-            return;
-        }
-        Nodo<Integer> aux = lista.primero();
         while (aux != null) {
-            System.out.print(aux.info + " -> ");
+            Nodo<Byte> mina = aux.info;
+            Lista<Nodo<Integer>> adyacencias = obtenerListaAdy(index);
+
+            // Generar posiciones adyacentes dentro de los límites
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
+                    if (i == 0 && j == 0) continue; // Omitimos la posición de la mina
+
+                    int nuevaFila = mina.fila + i;
+                    int nuevaColumna = mina.col + j;
+
+                    // Verificamos que las coordenadas estén dentro de los límites
+                    if (nuevaFila >= 0 && nuevaFila < filas && nuevaColumna >= 0 && nuevaColumna < columnas) {
+                        Nodo<Integer> nuevaPosicion = new Nodo<>(1, (byte) nuevaFila, (byte) nuevaColumna);
+                        Nodo<Nodo<Integer>> posAdy = adyacencias.fin();
+                        adyacencias.insertar(posAdy, nuevaPosicion);
+                    }
+                }
+            }
+
             aux = aux.prox;
-        }
-        System.out.println("FIN");
-    } 
-    
-    public void insertaArista(int i, int j) {
-        if (i >= numVertices || j >= numVertices) {
-            System.out.println("Error, no existe el vértice en el grafo");
-            return;
-        }
-
-        System.out.println("Insertando arista de " + i + " a " + j);
-        Lista<Integer> adyI = obtenerListaAdy(i);
-        Nodo<Integer> pos = adyI.fin();
-        adyI.insertar(pos, j);
-
-        if (!dirigido) {
-            Lista<Integer> adyJ = obtenerListaAdy(j);
-            pos = adyJ.fin();
-            adyJ.insertar(pos, i);
+            index++;
         }
     }
-    private Lista<Integer> obtenerListaAdy(int vertice) {
-        Nodo<Lista<Integer>> aux = listaAdy.primero();
+
+    private Lista<Nodo<Integer>> obtenerListaAdy(int vertice) {
+        Nodo<Lista<Nodo<Integer>>> aux = listaAdy.primero();
         for (int i = 0; i < vertice && aux != null; i++) {
             aux = aux.prox;
         }
         return aux != null ? aux.info : null;
     }
-    private Lista<Integer> obtenerListaAdy(int vertice) {
-        Nodo<Lista<Integer>> aux = listaAdy.primero();
-        for (int i = 0; i < vertice && aux != null; i++) {
+
+    public void imprimirListaVertices() {
+        Nodo<Nodo<Byte>> aux = listaVertices.primero();
+
+        while (aux != null) {
+            Nodo<Byte> mina = aux.info;
+            System.out.println("Mina en Posición: (* -> (" + mina.fila + "," + mina.col + "))");
             aux = aux.prox;
         }
-        return aux != null ? aux.info : null;
     }
-    */
-    /*
-     public void insertaArista(int i, int j) {
-        if (i >= numVertices || j >= numVertices) {
-            System.out.println("Error, no existe el vértice en el grafo");
-            return;
-        }
 
-        System.out.println("Insertando arista de " + i + " a " + j);
-        Lista<Integer> adyI = obtenerListaAdy(i);
-        Nodo<Integer> pos = adyI.fin();
-        adyI.insertar(pos, j);
+    public void imprimirListaAdyacencia() {
+    Nodo<Nodo<Byte>> auxVert = listaVertices.primero();
+    Nodo<Lista<Nodo<Integer>>> auxAdy = listaAdy.primero();
 
-        if (!dirigido) {
-            Lista<Integer> adyJ = obtenerListaAdy(j);
-            pos = adyJ.fin();
-            adyJ.insertar(pos, i);
+    while (auxVert != null && auxAdy != null) {
+        Nodo<Byte> mina = auxVert.info;
+        System.out.print("Mina en Posicion: (* -> (" + mina.fila + "," + mina.col + ")); ");
+
+        Nodo<Nodo<Integer>> aux = auxAdy.info.primero();
+        while (aux != null) {
+            System.out.print("1 en -> (" + aux.info.fila + "," + aux.info.col + "), ");
+            aux = aux.prox;
         }
+        System.out.println(); // Salto de línea solo al final de cada mina
+
+        auxVert = auxVert.prox;
+        auxAdy = auxAdy.prox;
     }
-    */
-
-    
 }
 
 }

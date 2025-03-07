@@ -170,10 +170,17 @@ public class Tablero extends JFrame {
         nuevaVentana.setVisible(true);
         this.grafo = new GrafoLA(cantidadFilas.getValue(), cantidadColumnas.getValue(), true);
         generarMinas(cantidadFilas.getValue(), cantidadColumnas.getValue());
-        implimirListaMinas();
+        grafo.calcularAdyacencias(cantidadFilas.getValue(), cantidadColumnas.getValue());
+        //implimirListaMinas();
+        imprimirListaAdyacencia();
         //crearTablero(cantidadFilas.getValue(), cantidadColumnas.getValue());
     }//GEN-LAST:event_crearTableroActionPerformed
 
+    private void imprimirListaAdyacencia() {
+        System.out.println("Listas de Adyacencia de las minas");
+        grafo.imprimirListaAdyacencia();
+    }
+    
     private void generarMinas(int filas, int columnas)  {
         int numMinas = Math.max(filas, columnas);
         Random ramd = new Random();
@@ -182,8 +189,6 @@ public class Tablero extends JFrame {
             byte col = (byte)ramd.nextInt(columnas);
             Nodo<Byte> mina = new Nodo<>((byte)'*', fila, col);
             grafo.insertaVertice(mina);
-            
-            
         }     
     }
     
