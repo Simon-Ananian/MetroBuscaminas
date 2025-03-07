@@ -5,13 +5,20 @@
 package proyecto.metrobuscaminas.tablero;
 import javax.swing.*;
 import java.awt.*;
+import GrafoLA.GrafoLA;
+import Lista.Nodo;
+import java.util.Random;
+
 
 /**
  *
  * @author enith
  */
 public class Tablero extends JFrame {
-
+    
+    private GrafoLA grafo;
+    
+    
     /**
      * Creates new form Tablero
      */
@@ -161,8 +168,29 @@ public class Tablero extends JFrame {
     private void crearTableroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearTableroActionPerformed
         Buscaminas nuevaVentana = new Buscaminas(cantidadFilas.getValue(), cantidadColumnas.getValue(), Math.max(cantidadFilas.getValue(), cantidadColumnas.getValue()));
         nuevaVentana.setVisible(true);
+        this.grafo = new GrafoLA(cantidadFilas.getValue(), cantidadColumnas.getValue(), true);
+        generarMinas(cantidadFilas.getValue(), cantidadColumnas.getValue());
+        implimirListaMinas();
+        //crearTablero(cantidadFilas.getValue(), cantidadColumnas.getValue());
     }//GEN-LAST:event_crearTableroActionPerformed
 
+    private void generarMinas(int filas, int columnas)  {
+        int numMinas = Math.max(filas, columnas);
+        Random ramd = new Random();
+        for (int i=0; i<numMinas; i++ ) {
+            byte fila = (byte)ramd.nextInt(filas);
+            byte col = (byte)ramd.nextInt(columnas);
+            Nodo<Byte> mina = new Nodo<>((byte)'*', fila, col);
+            grafo.insertaVertice(mina);
+            
+            
+        }     
+    }
+    
+    private void implimirListaMinas() {
+        grafo.imprimirListaVertices();
+    }
+    
     private void actualizarCantidadMinas() {
         int maximoValor = Math.max(cantidadFilas.getValue(), cantidadColumnas.getValue());
         cantidadMinas.setText("Cantidad de minas: "+ maximoValor);
