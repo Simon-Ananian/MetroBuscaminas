@@ -25,7 +25,6 @@ public class GrafoLA {
         System.out.println("Error, se supera el número de nodos máximo del grafo");
         return;
     }
-    
 
     // Insertamos la mina como vértice en la lista de vértices
     Nodo<Nodo<Byte>> posVert = listaVertices.fin();
@@ -141,33 +140,31 @@ private int obtenerIndiceMina(Nodo<Byte> mina) {
         }
     }
     
-    public void imprimirListaVertices() {
-        Nodo<Nodo<Byte>> aux = listaVertices.primero();
+    public String[][] obtenerMatrizConMinasYNumeros() {
+        String[][] matriz = new String[matrizValores.length][matrizValores[0].length];
 
-        while (aux != null) {
-            Nodo<Byte> mina = aux.info;
-            System.out.println("Mina en Posición: (* -> (" + mina.fila + "," + mina.col + "))");
-            aux = aux.prox;
+        for (int i = 0; i < matrizValores.length; i++) {
+            for (int j = 0; j < matrizValores[0].length; j++) {
+                boolean esMina = false;
+                Nodo<Nodo<Byte>> aux = listaVertices.primero();
+
+            while (aux != null) {
+                if (aux.info.fila == i && aux.info.col == j) {
+                    esMina = true;
+                    break;
+                }
+                aux = aux.prox;
+            }
+
+            if (esMina) {
+                matriz[i][j] = "*"; // Mina
+            } else {
+                matriz[i][j] = String.valueOf(matrizValores[i][j]); // Número de minas adyacentes
+            }
         }
     }
-
-    public void imprimirListaAdyacencia() {
-    Nodo<Nodo<Byte>> auxVert = listaVertices.primero();
-    Nodo<Lista<Nodo<Integer>>> auxAdy = listaAdy.primero();
-
-    while (auxVert != null && auxAdy != null) {
-        Nodo<Byte> mina = auxVert.info;
-        System.out.print("Mina en Posicion: (* -> (" + mina.fila + "," + mina.col + ")); ");
-
-        Nodo<Nodo<Integer>> aux = auxAdy.info.primero();
-        while (aux != null) {
-            System.out.print("1 en -> (" + aux.info.fila + "," + aux.info.col + "), ");
-            aux = aux.prox;
-        }
-        System.out.println(); // Salto de línea solo al final de cada mina
-
-        auxVert = auxVert.prox;
-        auxAdy = auxAdy.prox;
+        return matriz;
     }
 }
-}
+
+    

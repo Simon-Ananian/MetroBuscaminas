@@ -1,31 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package proyecto.metrobuscaminas.tablero;
+//import javax.swing.JButton;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.*;
-import GrafoLA.GrafoLA;
-import Lista.Nodo;
-import java.util.Random;
 
-
-/**
- *
- * @author enith
- */
 public class Tablero extends JFrame {
+//    private int cantidadFilas = 5;  // Puedes cambiarlo según tu necesidad
+//    private int cantidadColumnas = 5;
+      private JButton crearTablero;
     
-    private GrafoLA grafo;
-    
-    
-    /**
-     * Creates new form Tablero
-     */
     public Tablero() {
         initComponents();
         setVisible(true);
-        
     }
 
     /**
@@ -37,26 +24,24 @@ public class Tablero extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
+        cantidadFilas = new javax.swing.JSlider();
+        vaf = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cantidadFilas = new javax.swing.JSlider();
         cantidadColumnas = new javax.swing.JSlider();
-        VAF = new javax.swing.JLabel();
-        VAC = new javax.swing.JLabel();
-        cantidadMinas = new javax.swing.JLabel();
-        crearTablero = new javax.swing.JButton();
+        vac = new javax.swing.JLabel();
+        EtiquetaCantidadDeMinas = new javax.swing.JLabel();
+        CantidadMinas = new javax.swing.JLabel();
+        CrearJuego = new javax.swing.JButton();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Buscaminas");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Cantidad de filas: ");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Cantidad de columnas: ");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Bienvenido al Juego Buscaminas");
 
         cantidadFilas.setMajorTickSpacing(1);
         cantidadFilas.setMaximum(10);
@@ -64,15 +49,24 @@ public class Tablero extends JFrame {
         cantidadFilas.setPaintLabels(true);
         cantidadFilas.setPaintTicks(true);
         cantidadFilas.setValue(3);
+        cantidadFilas.setName(""); // NOI18N
         cantidadFilas.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 cantidadFilasStateChanged(evt);
             }
         });
 
+        vaf.setText("Valor Actual de la Fila: ");
+        vaf.setName("vaf"); // NOI18N
+
+        jLabel2.setText("Cantidad de Filas:");
+
+        jLabel3.setText("Cantidad de Columnas:");
+
         cantidadColumnas.setMajorTickSpacing(1);
         cantidadColumnas.setMaximum(10);
         cantidadColumnas.setMinimum(3);
+        cantidadColumnas.setMinorTickSpacing(1);
         cantidadColumnas.setPaintLabels(true);
         cantidadColumnas.setPaintTicks(true);
         cantidadColumnas.setValue(3);
@@ -82,16 +76,16 @@ public class Tablero extends JFrame {
             }
         });
 
-        VAF.setText("Valor actual de las filas: ");
+        vac.setText("Valor Actual de la Columna: ");
 
-        VAC.setText("Valor actual de las columnas:");
+        EtiquetaCantidadDeMinas.setText("Cantidad de Minas en el Tablero:   ");
 
-        cantidadMinas.setText("Cantidad de minas en el tablero:");
+        CantidadMinas.setText("0");
 
-        crearTablero.setText("Generar tablero");
-        crearTablero.addActionListener(new java.awt.event.ActionListener() {
+        CrearJuego.setText("Crear tablero");
+        CrearJuego.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                crearTableroActionPerformed(evt);
+                CrearJuegoActionPerformed(evt);
             }
         });
 
@@ -102,192 +96,153 @@ public class Tablero extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel1))
+                        .addGap(199, 199, 199)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(cantidadMinas, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(114, 114, 114)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(VAF, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(VAC, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(crearTablero))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cantidadColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 36, Short.MAX_VALUE))
+                                .addComponent(EtiquetaCantidadDeMinas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CantidadMinas, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(vac)
+                            .addComponent(vaf))))
+                .addGap(0, 154, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cantidadColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(151, 151, 151))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(CrearJuego)
+                        .addGap(196, 196, 196))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cantidadFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cantidadColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(42, 42, 42)
-                .addComponent(VAF, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(VAC, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(crearTablero))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cantidadMinas, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(cantidadColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EtiquetaCantidadDeMinas)
+                    .addComponent(CantidadMinas))
+                .addGap(43, 43, 43)
+                .addComponent(vaf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(vac)
+                .addGap(31, 31, 31)
+                .addComponent(CrearJuego)
+                .addGap(74, 74, 74))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cantidadFilasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cantidadFilasStateChanged
+        // TODO add your handling code here:
+        //Metodo que indica la cantidad de mindas
         int valor = cantidadFilas.getValue();
-        VAF.setText("Cantidad de filas: "+valor);
         actualizarCantidadMinas();
+        vaf.setText("Cantidad de Filas: " + valor);
+        
     }//GEN-LAST:event_cantidadFilasStateChanged
 
     private void cantidadColumnasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cantidadColumnasStateChanged
-        int valor = cantidadColumnas.getValue();
-        VAC.setText("Cantidad de Columnas: "+valor);
-        actualizarCantidadMinas();
+        // TODO add your handling code here:
+          int valor = cantidadColumnas.getValue();
+          actualizarCantidadMinas();
+        vac.setText("Cantidad de Columnas: " + valor);
     }//GEN-LAST:event_cantidadColumnasStateChanged
 
-    private void crearTableroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearTableroActionPerformed
-        Buscaminas nuevaVentana = new Buscaminas(cantidadFilas.getValue(), cantidadColumnas.getValue(), Math.max(cantidadFilas.getValue(), cantidadColumnas.getValue()));
-        nuevaVentana.setVisible(true);
-        this.grafo = new GrafoLA(cantidadFilas.getValue(), cantidadColumnas.getValue(), true);
-        generarMinas(cantidadFilas.getValue(), cantidadColumnas.getValue());
-        grafo.calcularAdyacencias();//Temporalmente
-        grafo.imprimirMatriz();
-        //implimirListaMinas();
-        //imprimirListaAdyacencia();
-        //crearTablero(cantidadFilas.getValue(), cantidadColumnas.getValue());
-    }//GEN-LAST:event_crearTableroActionPerformed
-
-    private void imprimirListaAdyacencia() {
-        System.out.println("Listas de Adyacencia de las minas");
-        grafo.imprimirListaAdyacencia();
-    }
-    
-    private void generarMinas(int filas, int columnas)  {
-        int numMinas = Math.max(filas, columnas);
-        Random ramd = new Random();
-        for (int i=0; i<numMinas; i++ ) {
-            byte fila = (byte)ramd.nextInt(filas);
-            byte col = (byte)ramd.nextInt(columnas);
-            Nodo<Byte> mina = new Nodo<>((byte)'*', fila, col);
-            grafo.insertaVertice(mina);
-        }     
-    }
-    
-    private void implimirListaMinas() {
-        grafo.imprimirListaVertices();
-    }
-    
+    private void CrearJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearJuegoActionPerformed
+        Buscamina buscaMina = new Buscamina(cantidadFilas.getValue(), cantidadColumnas.getValue(), Math.max(cantidadFilas.getValue(), cantidadColumnas.getValue()));
+        buscaMina.setVisible(true);  
+    }//GEN-LAST:event_CrearJuegoActionPerformed
     private void actualizarCantidadMinas() {
-        int maximoValor = Math.max(cantidadFilas.getValue(), cantidadColumnas.getValue());
-        cantidadMinas.setText("Cantidad de minas: "+ maximoValor);
+        int maxValor = Math.max(cantidadFilas.getValue(), cantidadColumnas.getValue());
+        CantidadMinas.setText("Cantidad Minas: " + maxValor);
     }
-    /**
-     * @param args the command line arguments
-     */
-    /*public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Tablero().setVisible(true);
-            }
-        });
-    }
-*/
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel VAC;
-    private javax.swing.JLabel VAF;
+    private javax.swing.JLabel CantidadMinas;
+    private javax.swing.JButton CrearJuego;
+    private javax.swing.JLabel EtiquetaCantidadDeMinas;
     private javax.swing.JSlider cantidadColumnas;
     private javax.swing.JSlider cantidadFilas;
-    private javax.swing.JLabel cantidadMinas;
-    private javax.swing.JButton crearTablero;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JLabel vac;
+    private javax.swing.JLabel vaf;
     // End of variables declaration//GEN-END:variables
 }
 
-class Buscaminas extends JFrame {
-    private JLabel labelFilas;
-    private JLabel labelColumnas;
-    private JLabel labelMinas;
-    private JPanel panel;
+class Buscamina extends JFrame {
+    private final JLabel labelFilas;
+    private final JLabel labelColumnas;
+    private final JLabel labelMinas;
     private JButton[][] botones;
-    
-    
-    public Buscaminas(int cantidadFilas, int cantidadColumnas, int cantidadMinas) {
+    private JPanel panel;
+
+    public Buscamina(int cantidadFilas, int cantidadColumnas, int cantidadMinas) {
         setTitle("Buscaminas");
+        setSize(50 * cantidadColumnas + 50, 50 * cantidadFilas + 100); // Ajustar tamaño dinámicamente
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Solo cierra esta ventana
-        //setLayout(new GridLayout(3,1));
-        setLayout(new BorderLayout());
-        setLocationRelativeTo(null);
-        JPanel infopanel = new JPanel(new GridLayout(3,1));
-        labelFilas = new JLabel("Cantidad de Filas: "+cantidadFilas);
-        labelColumnas = new JLabel("Cantidad de Columnas: "+cantidadColumnas);
-        labelMinas = new JLabel("Cantidad de Minas: "+cantidadMinas);
-        setSize(50 * cantidadColumnas, 50 * cantidadFilas);
-        infopanel.add(labelFilas);
-        infopanel.add(labelColumnas);
-        infopanel.add(labelMinas);
-        add(infopanel, BorderLayout.NORTH);
+        setLocationRelativeTo(null); // Centrar la ventana
+        setLayout(new BorderLayout()); // Se usa un layout para manejar los componentes
+
+        // Panel superior para mostrar la información
+        JPanel infoPanel = new JPanel(new GridLayout(3, 1));
+        labelFilas = new JLabel("Cantidad de filas: " + cantidadFilas);
+        labelColumnas = new JLabel("Cantidad de Columnas: " + cantidadColumnas);
+        labelMinas = new JLabel("Cantidad de Minas: " + cantidadMinas);
+        infoPanel.add(labelFilas);
+        infoPanel.add(labelColumnas);
+        infoPanel.add(labelMinas);
+        add(infoPanel, BorderLayout.NORTH);
+
+        // Crear la matriz de botones
         dibujarMatrizBotones(cantidadFilas, cantidadColumnas);
+
+        // Asegurar que el panel tiene los botones antes de agregarlo
         if (panel != null) {
             add(panel, BorderLayout.CENTER);
         }
+
         setVisible(true);
     }
-    
-    public void dibujarMatrizBotones(int filas, int columnas) {
-        panel = new JPanel(new GridLayout(filas, columnas, 2, 2));
+
+    private void dibujarMatrizBotones(int filas, int columnas) {
+        panel = new JPanel(new GridLayout(filas, columnas, 2, 2)); // ✅ Usar la variable de clase `panel`
         botones = new JButton[filas][columnas];
+        CT controlador = new CT(filas, columnas);
+        String[][] matriz = controlador.obtenerMatrizConMinas(filas, columnas);
+
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                botones [i] [j] = new JButton();
-                panel.add(botones[i][j]); //
+                botones[i][j] = new JButton();
+                
+                botones[i][j].setText(matriz[i][j]);
+              
+                panel.add(botones[i][j]); // Agregar botón al panel
             }
         }
-        
     }
 }
