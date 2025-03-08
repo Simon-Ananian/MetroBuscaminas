@@ -5,18 +5,21 @@ public class Nodo<T> {
    public Nodo<T> prox;
    public byte fila;
    public byte col;
+   public boolean visitado;  // Nuevo atributo para marcar visitas
 
-    // Constructor estándar
-    public Nodo(T info) {
-        this.info = info;
-        this.prox = null;
-    }
+   // Constructor para nodos normales
+   public Nodo(T info) {
+       this.info = info;
+       this.prox = null;
+       this.visitado = false;
+   }
 
-    // Constructor para minas
-    public Nodo(T info, byte fila, byte col) {
-        this.info = info;
-        this.fila = fila;
-        this.col = col;
-        this.prox = null;
-    }
+   // Constructor para nodos con coordenadas (minas)
+   public Nodo(T info, byte fila, byte col) {
+       this.info = info;
+       this.fila = fila;
+       this.col = col;
+       this.prox = null;
+       this.visitado = false;
+   }
 }

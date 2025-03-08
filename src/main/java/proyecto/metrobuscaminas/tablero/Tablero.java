@@ -170,7 +170,8 @@ public class Tablero extends JFrame {
         nuevaVentana.setVisible(true);
         this.grafo = new GrafoLA(cantidadFilas.getValue(), cantidadColumnas.getValue(), true);
         generarMinas(cantidadFilas.getValue(), cantidadColumnas.getValue());
-        grafo.calcularAdyacencias(cantidadFilas.getValue(), cantidadColumnas.getValue());
+        grafo.calcularAdyacencias();//Temporalmente
+        grafo.imprimirMatriz();
         //implimirListaMinas();
         imprimirListaAdyacencia();
         //crearTablero(cantidadFilas.getValue(), cantidadColumnas.getValue());
