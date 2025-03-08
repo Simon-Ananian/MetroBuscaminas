@@ -4,7 +4,7 @@ import GrafoLA.GrafoLA;
 import Lista.Nodo;
 import java.util.Random;
 
-public class CT { //CT es una abreviado del nombre controlador del tablero
+public class CT {
     private GrafoLA grafo;
     private int filas;
     private int columnas;
@@ -26,19 +26,11 @@ public class CT { //CT es una abreviado del nombre controlador del tablero
             grafo.insertaVertice(mina);
         }
     }
-
-    public void generarMatriz(int filas, int columnas) {
-        CT controlador = new CT(filas, columnas);
-        controlador.generarMinas();
-        controlador.grafo.calcularAdyacencias();
-        controlador.grafo.imprimirMatriz();
-    }
     
-    public String[][] obtenerMatrizConMinas(int filas, int columnas) {
+    public String[][] generarMatriz(int filas, int columnas) {
         CT controlador = new CT(filas, columnas);
         controlador.generarMinas();
         controlador.grafo.calcularAdyacencias();
-    //    controlador.grafo.imprimirMatriz();
         return controlador.grafo.obtenerMatrizConMinasYNumeros();
     }
 }

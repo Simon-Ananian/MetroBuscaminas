@@ -82,7 +82,7 @@ public class Tablero extends JFrame {
 
         CantidadMinas.setText("0");
 
-        CrearJuego.setText("Crear tablero");
+        CrearJuego.setText("jButton1");
         CrearJuego.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CrearJuegoActionPerformed(evt);
@@ -173,11 +173,16 @@ public class Tablero extends JFrame {
     private void CrearJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearJuegoActionPerformed
         Buscamina buscaMina = new Buscamina(cantidadFilas.getValue(), cantidadColumnas.getValue(), Math.max(cantidadFilas.getValue(), cantidadColumnas.getValue()));
         buscaMina.setVisible(true);  
+        crearTablero(cantidadFilas.getValue(),cantidadColumnas.getValue());
     }//GEN-LAST:event_CrearJuegoActionPerformed
     private void actualizarCantidadMinas() {
         int maxValor = Math.max(cantidadFilas.getValue(), cantidadColumnas.getValue());
         CantidadMinas.setText("Cantidad Minas: " + maxValor);
     }
+    private void crearTablero(int filas, int columnas){
+     System.out.println("entre");
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CantidadMinas;
@@ -193,6 +198,7 @@ public class Tablero extends JFrame {
     private javax.swing.JLabel vaf;
     // End of variables declaration//GEN-END:variables
 }
+
 
 class Buscamina extends JFrame {
     private final JLabel labelFilas;
@@ -233,14 +239,25 @@ class Buscamina extends JFrame {
         panel = new JPanel(new GridLayout(filas, columnas, 2, 2)); // ✅ Usar la variable de clase `panel`
         botones = new JButton[filas][columnas];
         CT controlador = new CT(filas, columnas);
-        String[][] matriz = controlador.obtenerMatrizConMinas(filas, columnas);
+        String[][] matriz = controlador.generarMatriz(filas, columnas);
 
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                botones[i][j] = new JButton();
+                final int x = i;
+                final int y = j;  
+                final String valorCelda = matriz[i][j];
                 
-                botones[i][j].setText(matriz[i][j]);
-              
+                botones[i][j] = new JButton();
+                botones[i][j].setText("");
+                
+                botones[i][j].addActionListener(new ActionListener() {
+                @Override
+                    public void actionPerformed(ActionEvent e) {
+                        botones[x][y].setText(valorCelda); // Revelar el contenido al hacer clic
+                        botones[x][y].setEnabled(false); // Deshabilitar botón después de revelarlo
+                }
+                });
+                
                 panel.add(botones[i][j]); // Agregar botón al panel
             }
         }

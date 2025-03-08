@@ -115,30 +115,6 @@ private int obtenerIndiceMina(Nodo<Byte> mina) {
     }
     return aux != null ? aux.info : new Lista<>();
 }
-
-
-    public void imprimirMatriz() {
-        System.out.println("\nMatriz de adyacencias:");
-        for (int i = 0; i < matrizValores.length; i++) {
-            for (int j = 0; j < matrizValores[0].length; j++) {
-                boolean esMina = false;
-                Nodo<Nodo<Byte>> aux = listaVertices.primero();
-                while (aux != null) {
-                    if (aux.info.fila == i && aux.info.col == j) {
-                        esMina = true;
-                        break;
-                    }
-                    aux = aux.prox;
-                }
-                if (esMina) {
-                    System.out.print(" * ");
-                } else {
-                    System.out.print(" " + matrizValores[i][j] + " ");
-                }
-            }
-            System.out.println();
-        }
-    }
     
     public String[][] obtenerMatrizConMinasYNumeros() {
         String[][] matriz = new String[matrizValores.length][matrizValores[0].length];
