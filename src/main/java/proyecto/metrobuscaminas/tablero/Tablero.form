@@ -181,7 +181,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="CrearJuego">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Crear tablero"/>
+        <Property name="text" type="java.lang.String" value="Crear Tablero"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CrearJuegoActionPerformed"/>

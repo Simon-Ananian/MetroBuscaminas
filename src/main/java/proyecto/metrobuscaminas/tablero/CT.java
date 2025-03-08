@@ -34,7 +34,7 @@ public class CT {
             }
             
             if(repetida){
-                i--; // Si la posición ya existe, restamos 1 a i para repetir la iteración
+                i--; // Si la posición ya existe, restamos 1 a `i` para repetir la iteración
             } else {
                 posicionesMinas[i] = clave; // Guardamos la nueva posición en el arreglo
                 Nodo<Byte> mina = new Nodo<>((byte) '*', fila, col);
@@ -43,7 +43,6 @@ public class CT {
   
         }
     }
-
     
     public String[][] generarMatriz(int filas, int columnas) {
         CT controlador = new CT(filas, columnas);

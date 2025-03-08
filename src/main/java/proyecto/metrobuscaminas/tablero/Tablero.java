@@ -82,7 +82,7 @@ public class Tablero extends JFrame {
 
         CantidadMinas.setText("0");
 
-        CrearJuego.setText("jButton1");
+        CrearJuego.setText("Crear Tablero");
         CrearJuego.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CrearJuegoActionPerformed(evt);
@@ -234,9 +234,19 @@ class Buscamina extends JFrame {
 
         setVisible(true);
     }
-
+    
+    private void revelarTodasLasMinas(String[][] matriz) { // Mostrar todas las minas después de perder juego
+        for (int i = 0; i < botones.length; i++) {
+            for (int j = 0; j < botones[i].length; j++) {
+                if (matriz[i][j].equals("*")) {
+                    botones[i][j].setText("*"); // Muestra la mina
+                }
+                }
+        }
+    }
+    
     private void dibujarMatrizBotones(int filas, int columnas) {
-        panel = new JPanel(new GridLayout(filas, columnas, 2, 2)); // ✅ Usar la variable de clase `panel`
+        panel = new JPanel(new GridLayout(filas, columnas, 2, 2)); // Usar la variable de clase `panel`
         botones = new JButton[filas][columnas];
         CT controlador = new CT(filas, columnas);
         String[][] matriz = controlador.generarMatriz(filas, columnas);
@@ -252,12 +262,26 @@ class Buscamina extends JFrame {
                 
                 botones[i][j].addActionListener(new ActionListener() {
                 @Override
-                    public void actionPerformed(ActionEvent e) {
+                    public void actionPerformed(ActionEvent e) { //Accion de dar clic a la casilla
                         botones[x][y].setText(valorCelda); // Revelar el contenido al hacer clic
                         botones[x][y].setEnabled(false); // Deshabilitar botón después de revelarlo
-                }
+                        
+                        if (valorCelda.equals("*")) { // Si la casilla es una mina
+                            revelarTodasLasMinas(matriz); // Revelar todas las minas
+                            JOptionPane.showMessageDialog(
+                                null, 
+                                "¡Perdiste el juego!", 
+                                "Game Over", 
+                                JOptionPane.ERROR_MESSAGE
+                            );
+                            for (JButton[] botone1 : botones) { // se desabilitan los botones
+                                for (JButton botone : botone1) {
+                                    botone.setEnabled(false);
+                                }
+                            }
+                        }
+                    }
                 });
-                
                 panel.add(botones[i][j]); // Agregar botón al panel
             }
         }
