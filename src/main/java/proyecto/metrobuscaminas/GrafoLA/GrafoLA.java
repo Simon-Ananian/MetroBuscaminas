@@ -140,4 +140,34 @@ private int obtenerIndiceMina(Nodo<Byte> mina) {
             System.out.println();
         }
     }
+    
+    public void imprimirListaVertices() {
+        Nodo<Nodo<Byte>> aux = listaVertices.primero();
+
+        while (aux != null) {
+            Nodo<Byte> mina = aux.info;
+            System.out.println("Mina en Posición: (* -> (" + mina.fila + "," + mina.col + "))");
+            aux = aux.prox;
+        }
+    }
+
+    public void imprimirListaAdyacencia() {
+    Nodo<Nodo<Byte>> auxVert = listaVertices.primero();
+    Nodo<Lista<Nodo<Integer>>> auxAdy = listaAdy.primero();
+
+    while (auxVert != null && auxAdy != null) {
+        Nodo<Byte> mina = auxVert.info;
+        System.out.print("Mina en Posicion: (* -> (" + mina.fila + "," + mina.col + ")); ");
+
+        Nodo<Nodo<Integer>> aux = auxAdy.info.primero();
+        while (aux != null) {
+            System.out.print("1 en -> (" + aux.info.fila + "," + aux.info.col + "), ");
+            aux = aux.prox;
+        }
+        System.out.println(); // Salto de línea solo al final de cada mina
+
+        auxVert = auxVert.prox;
+        auxAdy = auxAdy.prox;
+    }
+}
 }

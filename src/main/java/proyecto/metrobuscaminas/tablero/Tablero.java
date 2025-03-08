@@ -173,7 +173,7 @@ public class Tablero extends JFrame {
         grafo.calcularAdyacencias();//Temporalmente
         grafo.imprimirMatriz();
         //implimirListaMinas();
-        imprimirListaAdyacencia();
+        //imprimirListaAdyacencia();
         //crearTablero(cantidadFilas.getValue(), cantidadColumnas.getValue());
     }//GEN-LAST:event_crearTableroActionPerformed
 
