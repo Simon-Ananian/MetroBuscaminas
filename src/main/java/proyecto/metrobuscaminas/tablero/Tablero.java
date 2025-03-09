@@ -225,7 +225,7 @@ class Buscamina extends JFrame {
         add(infoPanel, BorderLayout.NORTH);
 
         // Crear la matriz de botones
-        dibujarMatrizBotones(cantidadFilas, cantidadColumnas);
+        dibujarMatrizBotones(cantidadFilas, cantidadColumnas, cantidadMinas);
 
         // Asegurar que el panel tiene los botones antes de agregarlo
         if (panel != null) {
@@ -241,16 +241,71 @@ class Buscamina extends JFrame {
                 if (matriz[i][j].equals("*")) {
                     botones[i][j].setText("*"); // Muestra la mina
                 }
-                }
+            }
+        }
+        for (JButton[] botone1 : botones) { // se desabilitan los botones (perdiste)
+            for (JButton botone : botone1) {
+                botone.setEnabled(false);
+            }
         }
     }
     
-    private void dibujarMatrizBotones(int filas, int columnas) {
+    private void revelarCeldasAdyacentes(String[][] matriz, int x, int y, boolean[][] visitado) {
+        if (visitado[x][y]) {
+            return;  // Si ya fue visitada, salimos
+        }
+  
+        visitado[x][y] = true;
+        
+        // Deshabilitar el botón para evitar más clics
+        botones[x][y].setEnabled(false); // Deshabilitar botón
+        
+        // Si la casilla es "0", revelamos las celdas adyacentes recursivamente
+        if (matriz[x][y].equals("0")) {
+            botones[x][y].setText(""); // Si es 0, no mostrar nada
+            // Explorar las celdas adyacentes (vecinos)
+            for (int i = -1; i <= 1; i++) {
+                if(x + i >= 0 && x + i < matriz.length){
+                    for (int j = -1; j <= 1; j++) {
+                        // Evitar salir de los límites de la matriz
+                        if (y + j >= 0 && y + j < matriz[0].length) {
+                            // Llamada recursiva para descubrir las celdas adyacentes
+                            revelarCeldasAdyacentes(matriz, x + i, y + j, visitado);
+                        }
+                    }
+                }
+            }
+        } else {
+            botones[x][y].setText(matriz[x][y]); // Revelar el contenido
+        }
+    }
+    
+    public int contarCeldasVisitadas(boolean[][] visitado) {
+        int contador = 0;
+        for (int i = 0; i < visitado.length; i++) {
+            for (int j = 0; j < visitado[i].length; j++) {
+                if (visitado[i][j]) {
+                    contador++;
+                }
+            }
+        }
+        return contador;
+    }
+    
+    public void ganarJuego (String[][] matriz, boolean[][] visitado, int filas, int columnas, int minas){
+        if (contarCeldasVisitadas(visitado) == (filas*columnas - minas)){
+            JOptionPane.showMessageDialog(null, "¡Felicidades! Has ganado el juego 🎉", "Victoria", JOptionPane.INFORMATION_MESSAGE);
+            revelarTodasLasMinas(matriz);
+        }
+    }
+    
+    private void dibujarMatrizBotones(int filas, int columnas, int minas) {
         panel = new JPanel(new GridLayout(filas, columnas, 2, 2)); // Usar la variable de clase `panel`
         botones = new JButton[filas][columnas];
         CT controlador = new CT(filas, columnas);
         String[][] matriz = controlador.generarMatriz(filas, columnas);
-
+        boolean[][] visitado = new boolean[filas][columnas];
+        
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 final int x = i;
@@ -263,10 +318,7 @@ class Buscamina extends JFrame {
                 botones[i][j].addActionListener(new ActionListener() {
                 @Override
                     public void actionPerformed(ActionEvent e) { //Accion de dar clic a la casilla
-                        botones[x][y].setText(valorCelda); // Revelar el contenido al hacer clic
-                        botones[x][y].setEnabled(false); // Deshabilitar botón después de revelarlo
-                        
-                        if (valorCelda.equals("*")) { // Si la casilla es una mina
+                        if (valorCelda.equals("*")) { // Si la casilla es una mina (perdiste)
                             revelarTodasLasMinas(matriz); // Revelar todas las minas
                             JOptionPane.showMessageDialog(
                                 null, 
@@ -274,11 +326,14 @@ class Buscamina extends JFrame {
                                 "Game Over", 
                                 JOptionPane.ERROR_MESSAGE
                             );
-                            for (JButton[] botone1 : botones) { // se desabilitan los botones
-                                for (JButton botone : botone1) {
-                                    botone.setEnabled(false);
-                                }
-                            }
+                        } else if (valorCelda.equals("0")) { // Si la casilla es un "0"
+                            revelarCeldasAdyacentes(matriz, x, y, visitado); // Descubrir celdas adyacentes
+                            ganarJuego(matriz, visitado, filas, columnas, minas);
+                        } else {
+                            visitado[x][y] = true;
+                            botones[x][y].setText(valorCelda); // Revelar el contenido al hacer clic
+                            botones[x][y].setEnabled(false); // Deshabilitar botón después de revelarlo
+                            ganarJuego(matriz, visitado, filas, columnas, minas);
                         }
                     }
                 });
