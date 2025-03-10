@@ -5,25 +5,43 @@
     <artifactId>minesweeper</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <compilerArgs>
-                        <arg>--enable-preview</arg>
-                    </compilerArgs>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<build>
+    <plugins>
+        <!-- Plugin de compilación -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version>
+            <configuration>
+                <compilerArgs>
+                    <arg>--enable-preview</arg>
+                </compilerArgs>
+            </configuration>
+        </plugin>
+
+        <!-- Plugin para generar Javadoc -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.5.0</version>  <!-- Usa la versión más reciente disponible -->
+            <configuration>
+                <destDir>target/site/apidocs</destDir>  <!-- Carpeta donde se guardará la documentación -->
+                <failOnError>false</failOnError> <!-- Evita que errores de Javadoc detengan el proceso -->
+                <author>true</author>
+                <version>true</version>
+                <use>true</use>
+                <windowtitle>Documentación API - Mi Proyecto</windowtitle>
+                <doctitle>Documentación API - Mi Proyecto</doctitle>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>23</maven.compiler.source>
         <maven.compiler.target>23</maven.compiler.target>
         <exec.mainClass>projects.minesweeper.Minesweeper</exec.mainClass>
     </properties>
-
+ 
 </project>
