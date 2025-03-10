@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"proyecto.metrobuscaminas","c":"MetroBuscaminas","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"proyecto.metrobuscaminas","c":"MetroBuscaminas","l":"MetroBuscaminas()","u":"%3Cinit%3E()"}];updateSearchResults();
